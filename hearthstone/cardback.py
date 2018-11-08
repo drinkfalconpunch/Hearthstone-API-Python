@@ -1,4 +1,5 @@
 import requests
+import string
 
 from .utils import slash_join
 
@@ -72,6 +73,7 @@ class HearthstoneCardback(object):
             return self.cardbacks
         if not isinstance(cardback_name, str):
             raise ValueError('Cardback name must be a string.')
+        cardback_name = string.capwords(cardback_name)
         for back in self.cardbacks:
             if cardback_name == back.name:
                 return back
