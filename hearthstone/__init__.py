@@ -1,2 +1,3 @@
 from .hearthstone import HearthstoneAPI
-from .cardback import HearthstoneCardback
+
+# TODO: Add version number
