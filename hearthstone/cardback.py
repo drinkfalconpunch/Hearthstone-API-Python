@@ -36,7 +36,8 @@ class HearthstoneCardback(APIMixin):
         self.cardbacks = self._get_cardbacks()
 
     def _get_cardbacks(self, callback=None):
-        request = self.get_asset('cardbacks', header=self.header)
+        request = self.get_asset(
+            'cardbacks', header=self.header, callback=callback)
         cardbacks = list()
         for cardback in request:
             cardbacks.append(Cardback(**cardback))

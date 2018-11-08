@@ -33,3 +33,10 @@ def test_get_cardback_description(cardback_name='classic'):
     r = HearthstoneAPI(api_key=api_key)
     assert r.cardback.get_cardback_description(
         cardback_name) == 'The only card back you\'ll ever need.'
+
+
+@vcr.use_cassette('tests/cassettes/test_cardback.yml')
+def test_get_cardback_none(cardback_name='random'):
+    r = HearthstoneAPI(api_key=api_key)
+    with pytest.raises(ValueError):
+        r.cardback.get_cardback_description(cardback_name)

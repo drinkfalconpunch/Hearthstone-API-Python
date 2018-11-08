@@ -3,22 +3,36 @@ import requests
 from .base import HearthstoneBase
 from .mixins import APIMixin
 
-class CardBase(HearthstoneBase):
+
+class Card(HearthstoneBase):
+    CLASS_ATTRIBUTES = ('set', 'class', 'faction', 'quality', 'race', 'type',
+                        'attack', 'collectible', 'cost', 'durability',
+                        'health')
+
     def __init__(self, **attributes):
         super().__init__(**attributes)
 
 
 class HearthstoneCard(APIMixin):
-    def __init__(self, api_key, api_url, locale='enUS', **kwargs):
-        if api_key is None:
-            raise AttributeError('API key not found.')
-        self.api_key = api_key
-        self.cardback = kwargs.pop('cardback', None)
-        self.cardbacks = self._get_card_backs()
+    def __init__(self, header, locale, **kwargs):
+        self.header = header
+        self.locale = locale
+        self.callback = kwargs.pop('callback', None)
 
-    def _get_cardbacks(self, callback=None):
-        request = self.get_asset('cardbacks', header=self.header)
+    def _get_cards_by_set(self, callback=None):
+        request = self.get_asset('card', header=self.header, callback=callback)
         cardbacks = list()
         for cardback in request:
-            cardbacks.append(Cardback(**cardback))
+            cardbacks.append(Card(**cardback))
         return cardbacks
+
+    def _find_cardback(self, cardback_name):
+        if not cardback_name:
+            return self.cardbacks
+        if not isinstance(cardback_name, str):
+            raise ValueError('Cardback name must be a string.')
+        cardback_name = string.capwords(cardback_name)
+        for back in self.cardbacks:
+            if cardback_name == back.name:
+                return back
+        raise ValueError('Cardback name not found.')
