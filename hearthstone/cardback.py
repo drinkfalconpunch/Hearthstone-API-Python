@@ -1,4 +1,3 @@
-import requests
 import string
 
 from .base import HearthstoneBase
