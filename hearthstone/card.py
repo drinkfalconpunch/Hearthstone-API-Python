@@ -5,12 +5,17 @@ from .mixins import APIMixin
 
 
 class Card(HearthstoneBase):
-    CLASS_ATTRIBUTES = ('set', 'class', 'faction', 'quality', 'race', 'type',
-                        'attack', 'collectible', 'cost', 'durability',
-                        'health')
+    # CLASS_ATTRIBUTES = ('set', 'class', 'faction', 'quality', 'race', 'type',
+    #                     'attack', 'collectible', 'cost', 'durability',
+    #                     'health')
+    CLASS_ATTRIBUTES = ('cardID', 'dbfID', 'name', 'cardSet', 'type',
+                        'faction', 'rarity', 'cost', 'attack', 'health',
+                        'text', 'flavor', 'artist', 'collectible', 'elite',
+                        'race', 'playerClass', 'img', 'imgGole', 'locale',
+                        'mechanics')
 
     def __init__(self, **attributes):
-        super().__init__(**attributes)
+        super().__init__(CLASS_ATTRIBUTES, **attributes)
 
 
 class HearthstoneCard(APIMixin):
@@ -27,10 +32,6 @@ class HearthstoneCard(APIMixin):
             header=self.header,
             params=params,
             callback=callback)
-        # cardbacks = list()
-        # for cardback in request:
-        #     cardbacks.append(Card(**cardback))
-        # return cardbacks
         return request
 
     def _find_cardback(self, cardback_name):

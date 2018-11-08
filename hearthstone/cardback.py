@@ -10,7 +10,7 @@ class Cardback(HearthstoneBase):
                         'sortCategory', 'sortOrder', 'locale')
 
     def __init__(self, **attributes):
-        super(Cardback, self).__init__(**attributes)
+        super(Cardback, self).__init__(self.CLASS_ATTRIBUTES, **attributes)
 
     def _cardback_attributes(self):
         return self._class_attributes()
@@ -54,14 +54,17 @@ class HearthstoneCardback(APIMixin):
                 return back
         raise ValueError('Cardback name not found.')
 
+    def get_cardback(self, cardback_name=None):
+        return self._find_cardback(cardback_name)
+
     def get_cardback_attributes(self, cardback_name=None):
-        return self._find_cardback(cardback_name)._cardback_attributes()
+        return self.get_cardback(cardback_name)._cardback_attributes()
 
     def get_cardback_image(self, cardback_name=None):
-        return self._find_cardback(cardback_name)._cardback_image()
+        return self.get_cardback(cardback_name)._cardback_image()
 
     def get_cardback_image_animated(self, cardback_name=None):
-        return self._find_cardback(cardback_name)._cardback_image_animated()
+        return self.get_cardback(cardback_name)._cardback_image_animated()
 
     def get_cardback_description(self, cardback_name=None):
-        return self._find_cardback(cardback_name)._cardback_description()
+        return self.get_cardback(cardback_name)._cardback_description()

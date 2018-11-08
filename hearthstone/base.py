@@ -1,7 +1,6 @@
 class HearthstoneBase(object):
-    CLASS_ATTRIBUTES = ()
-
-    def __init__(self, **attributes):
+    def __init__(self, class_attributes, **attributes):
+        self.class_attributes = class_attributes
         self._attributes = attributes
         self._initialize_attributes()
 
@@ -16,11 +15,11 @@ class HearthstoneBase(object):
         return self._fetch(key)
 
     def _initialize_attributes(self):
-        for attribute in self.CLASS_ATTRIBUTES:
+        for attribute in self.class_attributes:
             setattr(self, attribute, self._fetch_or_not_set(attribute))
 
     def _class_attributes(self):
         class_attributes = dict()
-        for attribute in self.CLASS_ATTRIBUTES:
+        for attribute in self.class_attributes:
             class_attributes[attribute] = getattr(self, attribute)
         return class_attributes
