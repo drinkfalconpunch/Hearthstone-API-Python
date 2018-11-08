@@ -1,8 +1,7 @@
 from .cardback import HearthstoneCardback
-
+from .authenticator import Authenticator
 
 class HearthstoneAPI(object):
-    HEARTHSTONE_URL = 'https://omgvamp-hearthstone-v1.p.mashape.com/'
     API_LOCALES = ('enUS', 'enGB', 'deDE', 'esES', 'esMX', 'frFR', 'itIT',
                    'koKR', 'plPL', 'ptBR', 'ruRU', 'zhCN', 'zhTW', 'jaJP',
                    'thTH')
@@ -10,8 +9,7 @@ class HearthstoneAPI(object):
     def __init__(self, api_key=None, locale='enUS', **kwargs):
         if api_key is None:
             raise AttributeError('API key not found.')
-        self._api_key = api_key
-        self.header = {'X-Mashape-Key': self._api_key}
+        self.auth = Authenticator(api_key)
         self._locale = locale
 
     @property
@@ -26,7 +24,4 @@ class HearthstoneAPI(object):
 
     @property
     def cardback(self):
-        return HearthstoneCardback(
-            api_key=self._api_key,
-            api_url=self.HEARTHSTONE_URL,
-            locale=self._locale)
+        return HearthstoneCardback(header=self.auth.header, locale=self._locale)

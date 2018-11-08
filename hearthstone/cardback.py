@@ -1,8 +1,8 @@
 import requests
 import string
 
-from .utils import slash_join
 from .base import HearthstoneBase
+from .mixins import APIMixin
 
 
 class Cardback(HearthstoneBase):
@@ -29,24 +29,21 @@ class Cardback(HearthstoneBase):
         return getattr(self, 'description')
 
 
-class HearthstoneCardback(object):
-    def __init__(self, api_key, api_url, locale='enUS', **kwargs):
-        self.api_key = api_key
-        self.api_url = api_url
-        self.header = {'X-Mashape-Key': self.api_key}
+class HearthstoneCardback(APIMixin):
+    def __init__(self, header, locale, **kwargs):
+        self.header = header
+        self.locale = locale
         self.callback = kwargs.pop('callback', None)
         self.cardbacks = self._get_cardbacks()
 
-    def _get_cardbacks(self):
-        url = slash_join(self.api_url, 'cardbacks')
-        #f'cardbacks?callback={cardback}')
-        request = requests.get(url, headers=self.header).json()
+    def _get_cardbacks(self, callback=None):
+        request = self.get_asset('cardbacks', header=self.header)
         cardbacks = list()
         for cardback in request:
             cardbacks.append(Cardback(**cardback))
         return cardbacks
 
-    def _find_card(self, cardback_name):
+    def _find_cardback(self, cardback_name):
         if not cardback_name:
             return self.cardbacks
         if not isinstance(cardback_name, str):
@@ -58,13 +55,13 @@ class HearthstoneCardback(object):
         raise ValueError('Cardback name not found.')
 
     def get_cardback_attributes(self, cardback_name=None):
-        return self._find_card(cardback_name)._cardback_attributes()
+        return self._find_cardback(cardback_name)._cardback_attributes()
 
     def get_cardback_image(self, cardback_name=None):
-        return self._find_card(cardback_name)._cardback_image()
+        return self._find_cardback(cardback_name)._cardback_image()
 
     def get_cardback_image_animated(self, cardback_name=None):
-        return self._find_card(cardback_name)._cardback_image_animated()
+        return self._find_cardback(cardback_name)._cardback_image_animated()
 
     def get_cardback_description(self, cardback_name=None):
-        return self._find_card(cardback_name)._cardback_description()
+        return self._find_cardback(cardback_name)._cardback_description()
