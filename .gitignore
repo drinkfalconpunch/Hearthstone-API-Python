@@ -7,3 +7,4 @@ cassettes/
 credentials.py
 main.py
 *.ipynb
+.DS_Store
