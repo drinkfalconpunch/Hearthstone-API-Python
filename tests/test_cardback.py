@@ -1,5 +1,4 @@
 import vcr
-import requests
 import pytest
 
 from credentials import api_key
