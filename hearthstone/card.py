@@ -1,4 +1,4 @@
-import requests
+import string
 
 from .base import HearthstoneBase
 from .mixins import APIMixin
@@ -19,12 +19,19 @@ class HearthstoneCard(APIMixin):
         self.locale = locale
         self.callback = kwargs.pop('callback', None)
 
-    def _get_cards_by_set(self, callback=None):
-        request = self.get_asset('card', header=self.header, callback=callback)
-        cardbacks = list()
-        for cardback in request:
-            cardbacks.append(Card(**cardback))
-        return cardbacks
+    def _get_cards_by_set(self, card_set, params=None, callback=None):
+        request = self.get_asset(
+            'cards',
+            'sets',
+            string.capwords(card_set),
+            header=self.header,
+            params=params,
+            callback=callback)
+        # cardbacks = list()
+        # for cardback in request:
+        #     cardbacks.append(Card(**cardback))
+        # return cardbacks
+        return request
 
     def _find_cardback(self, cardback_name):
         if not cardback_name:

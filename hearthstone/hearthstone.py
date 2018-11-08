@@ -1,4 +1,5 @@
 from .cardback import HearthstoneCardback
+from .card import HearthstoneCard
 from .authenticator import Authenticator
 
 class HearthstoneAPI(object):
@@ -25,3 +26,7 @@ class HearthstoneAPI(object):
     @property
     def cardback(self):
         return HearthstoneCardback(header=self.auth.header, locale=self._locale)
+
+    @property
+    def card(self):
+        return HearthstoneCard(header=self.auth.header, locale=self._locale)
