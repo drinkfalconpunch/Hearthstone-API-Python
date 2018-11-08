@@ -2,37 +2,19 @@ import requests
 import string
 
 from .utils import slash_join
+from .base import HearthstoneBase
 
 
-class Cardback(object):
-    CARDBACK_ATTRIBUTES = ('cardBackId', 'name', 'description', 'source',
-                           'sourceDescription', 'enabled', 'img',
-                           'imgAnimated', 'sortCategory', 'sortOrder',
-                           'locale')
+class Cardback(HearthstoneBase):
+    CLASS_ATTRIBUTES = ('cardBackId', 'name', 'description', 'source',
+                        'sourceDescription', 'enabled', 'img', 'imgAnimated',
+                        'sortCategory', 'sortOrder', 'locale')
 
     def __init__(self, **attributes):
-        self._attributes = attributes
-        self._initialize_attributes()
-
-    def _fetch(self, key):
-        value = self._attributes[key]
-        del self._attributes[key]
-        return value
-
-    def _fetch_or_not_set(self, key, default=None):
-        if key not in self._attributes:  # Passed in values have the highest priority
-            return default
-        return self._fetch(key)
-
-    def _initialize_attributes(self):
-        for attribute in self.CARDBACK_ATTRIBUTES:
-            setattr(self, attribute, self._fetch_or_not_set(attribute))
+        super(Cardback, self).__init__(**attributes)
 
     def _cardback_attributes(self):
-        cardback_attributes = dict()
-        for attribute in self.CARDBACK_ATTRIBUTES:
-            cardback_attributes[attribute] = getattr(self, attribute)
-        return cardback_attributes
+        return self._class_attributes()
 
     def _cardback_image(self):
         return getattr(self, 'img')
@@ -42,10 +24,6 @@ class Cardback(object):
 
     def _cardback_name(self):
         return getattr(self, 'name')
-
-    # @property
-    # def description(self):
-    #     return self.getattr(self, 'description')
 
     def _cardback_description(self):
         return getattr(self, 'description')
