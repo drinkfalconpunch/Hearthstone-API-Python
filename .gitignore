@@ -1,0 +1,9 @@
+__pycache__/
+.pytest_cache/
+cassettes/
+.ipynb_checkpoints/
+.vscode/
+
+credentials.py
+main.py
+*.ipynb
