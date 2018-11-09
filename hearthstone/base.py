@@ -10,7 +10,7 @@ class HearthstoneBase(object):
         return value
 
     def _fetch_or_not_set(self, key, default=None):
-        if key not in self._attributes:  # Passed in values have the highest priority
+        if key not in self._attributes:
             return default
         return self._fetch(key)
 
