@@ -34,15 +34,18 @@ class HearthstoneSets(APIMixin):
             return True
         return False
 
-    def _get_card_set(self, set_name):
+    def _get_card_set(self, set_name, params=None):
         set_name = string.capwords(set_name)
         self._is_name_valid(set_name)
-        return self.get_asset('sets', set_name, header=self.header)
+
+        return self.get_asset('cards', 'sets', set_name, header=self.header, params=params)
 
     def get_card_set(self, set_name):
         set_name = string.capwords(set_name)
         self._is_name_valid(set_name)
+
         standard = self._is_set_standard(set_name)
         wild = self._is_set_wild(set_name)
         cards = self._get_card_set(set_name)
+
         return HearthstoneSet(set_name, standard, wild, cards)
