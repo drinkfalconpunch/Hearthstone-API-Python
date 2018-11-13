@@ -4,6 +4,13 @@ from .const import HEARTHSTONE_URL
 from .utils import slash_join
 
 class APIMixin(object):
+    # def __init__(self, header, locale, **kwargs):
+    #     if api_key is None:
+    #         raise AttributeError('API key not found.')
+    #     self.header = header
+    #     self.locale = locale
+    #     self.callback = kwargs.pop('callback', None)
+
     def _get_api_url(self, *assets):
         return slash_join(HEARTHSTONE_URL, *assets)
 

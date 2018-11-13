@@ -18,8 +18,10 @@ class HearthstoneSet(HearthstoneBase):
         setattr(self, 'cards', card_set)
 
 class HearthstoneSets(APIMixin):
-    def __init__(self, header=None):
+    def __init__(self, header, locale, **kwargs):
         self.header = header
+        self.locale = locale
+        self.callback = kwargs.pop('callback', None)
         self._initialize_sets()
 
     def _initialize_sets(self):
