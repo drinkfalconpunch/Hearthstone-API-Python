@@ -11,11 +11,6 @@ class HearthstoneCard(HearthstoneBase):
 
 
 class HearthstoneCardSet(APIMixin):
-    CLASS_ATTRIBUTES = ('set', 'class', 'faction', 'quality', 'race', 'type',
-                        'attack', 'collectible', 'cost', 'durability',
-                        'health')
-
-    PARAMS = ('attack', 'collectible', 'cost', 'durability', 'health')
 
     def __init__(self, header, locale, **kwargs):
         self.header = header
@@ -48,11 +43,6 @@ class HearthstoneCardSet(APIMixin):
                 return back
         raise ValueError('Cardback name not found.')
 
-    CLASSES = ('Neutral', 'Mage', 'Druid', 'Warlock', 'Paladin', 'Rogue',
-               'Shaman', 'Hunter', 'Priest', 'Warrior')
-
-    FACTIONS = ('Neutral', 'Horde', 'Alliance')
-
     def _get_cards_by_faction(self, faction, params=None, callback=None):
         faction = string.capwords(faction)
         if faction not in self.FACTIONS:
@@ -66,3 +56,9 @@ class HearthstoneCardSet(APIMixin):
             callback=callback)
 
         # for key, value in card.enumerate():
+
+    # def _get_card_set(self, set_name, params=None):
+    #     set_name = string.capwords(set_name)
+    #     self._is_name_valid(set_name)
+
+    #     return self.get_cards(subclass='sets', subvalue=set_name, header=self.header, params=params)

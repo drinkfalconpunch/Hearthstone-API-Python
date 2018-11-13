@@ -45,7 +45,7 @@ class HearthstoneSets(APIMixin):
         set_name = string.capwords(set_name)
         self._is_name_valid(set_name)
 
-        return self.get_asset('cards', 'sets', set_name, header=self.header, params=params)
+        return self.get_cards(subclass='sets', value=set_name, header=self.header, params=params)
 
     def get_card_set(self, set_name):
         set_name = string.capwords(set_name)
