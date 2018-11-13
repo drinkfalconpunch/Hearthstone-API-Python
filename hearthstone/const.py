@@ -12,3 +12,20 @@ CARDBACK_ATTRIBUTES = (
 )
 
 SET_ATTRIBUTES = ('name', 'standard', 'wild')
+
+VALID_CARD_SUBCLASSES = (
+    'faction', 'races', 'qualities', 'types', 'factions', 'classes', 'sets', 'search'
+)
+
+CLASSES = (
+    'Neutral', 'Mage', 'Druid', 'Warlock', 'Paladin', 'Rogue', 'Shaman', 'Hunter',
+    'Priest', 'Warrior'
+)
+
+FACTIONS = ('Neutral', 'Horde', 'Alliance')
+
+CLASS_ATTRIBUTES = ('set', 'class', 'faction', 'quality', 'race', 'type', 'attack',
+    'collectible', 'cost', 'durability', 'health'
+)
+
+PARAMS = ('attack', 'collectible', 'cost', 'durability', 'health')
