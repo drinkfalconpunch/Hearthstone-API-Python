@@ -2,6 +2,8 @@ from .cardback import HearthstoneCardback
 from .card import HearthstoneCard
 from .mixins import APIMixin
 from .authenticator import Authenticator
+from .sets import HearthstoneSets
+
 
 class HearthstoneAPI(APIMixin):
     def __init__(self, api_key=None, locale=None, **kwargs):
@@ -32,3 +34,7 @@ class HearthstoneAPI(APIMixin):
     @property
     def card(self):
         return HearthstoneCard(header=self.auth.header, locale=self._locale)
+
+    @property
+    def sets(self):
+        return HearthstoneSets(header=self.auth.header, locale=self._locale)
