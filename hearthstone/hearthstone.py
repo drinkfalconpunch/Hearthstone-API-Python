@@ -29,12 +29,12 @@ class HearthstoneAPI(APIMixin):
 
     @property
     def cardback(self):
-        return HearthstoneCardback(self.auth.header, locale=self._locale)
+        return HearthstoneCardback(self.auth.header, locale=self.locale)
 
     @property
     def card(self):
-        return HearthstoneCard(header=self.auth.header, locale=self._locale)
+        return HearthstoneCard(header=self.auth.header, locale=self.locale)
 
     @property
     def sets(self):
-        return HearthstoneSets(header=self.auth.header, locale=self._locale)
+        return HearthstoneSets(header=self.auth.header, locale=self.locale)
