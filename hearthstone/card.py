@@ -2,15 +2,15 @@ import string
 
 from .base import HearthstoneBase
 from .mixins import APIMixin
-from .const import HEARTHSTONE_URL, CLASS_ATTRIBUTES
+from .const import HEARTHSTONE_URL, CARD_ATTRIBUTES
 
 
-class Card(HearthstoneBase):
+class HearthstoneCard(HearthstoneBase):
     def __init__(self, **attributes):
-        super().__init__(CLASS_ATTRIBUTES, **attributes)
+        super(HearthstoneCard, self).__init__(CARD_ATTRIBUTES, **attributes)
 
 
-class HearthstoneCard(APIMixin):
+class HearthstoneCardSet(APIMixin):
     CLASS_ATTRIBUTES = ('set', 'class', 'faction', 'quality', 'race', 'type',
                         'attack', 'collectible', 'cost', 'durability',
                         'health')
@@ -22,7 +22,7 @@ class HearthstoneCard(APIMixin):
         self.locale = locale
         self.callback = kwargs.pop('callback', None)
 
-        factions = self._get_info('factions', self.header)
+        # factions = self._get_info('factions', self.header)
         # {'attack': None, 'collectible': None, 'cost': None, 'durability': None, 'health': None}
 
     def _get_cards_by_set(self, card_set, params=None, callback=None):
@@ -64,3 +64,5 @@ class HearthstoneCard(APIMixin):
             header=self.header,
             params=params,
             callback=callback)
+
+        # for key, value in card.enumerate():

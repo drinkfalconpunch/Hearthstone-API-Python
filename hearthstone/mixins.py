@@ -15,6 +15,14 @@ class APIMixin(object):
             for value in infos.keys():
                 setattr(self, value, infos[value])
 
+    def get_cards(self, subclass=None, header=None, params=None, callback=None):
+        return self.get_asset('cards', subclass, header, params, callback)
+
     def get_asset(self, *assets, header=None, params=None, callback=None):
         url = self._get_api_url(*assets)
         return requests.get(url, headers=header, params=params).json()
+
+
+class CallbackMixin(object):
+    def callback(self):
+        pass

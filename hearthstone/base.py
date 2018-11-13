@@ -4,6 +4,12 @@ class HearthstoneBase(object):
         self._attributes = attributes
         self._initialize_attributes()
 
+    def __repr__(self):
+        parts = list()
+        for key, value in self._class_attributes().items():
+            parts.append(f'{key}: {value}')
+        return ', '.join(parts)
+
     def _fetch(self, key):
         value = self._attributes[key]
         del self._attributes[key]

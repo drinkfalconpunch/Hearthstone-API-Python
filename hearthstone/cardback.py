@@ -2,15 +2,12 @@ import string
 
 from .base import HearthstoneBase
 from .mixins import APIMixin
+from .const import CARDBACK_ATTRIBUTES
 
 
 class Cardback(HearthstoneBase):
-    CLASS_ATTRIBUTES = ('cardBackId', 'name', 'description', 'source',
-                        'sourceDescription', 'enabled', 'img', 'imgAnimated',
-                        'sortCategory', 'sortOrder', 'locale')
-
     def __init__(self, **attributes):
-        super(Cardback, self).__init__(self.CLASS_ATTRIBUTES, **attributes)
+        super(Cardback, self).__init__(CARDBACK_ATTRIBUTES, **attributes)
 
     def _cardback_attributes(self):
         return self._class_attributes()
