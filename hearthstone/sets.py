@@ -1,14 +1,21 @@
 from .mixins import APIMixin
 import string
+from .card import HearthstoneCard
+from .const import SET_ATTRIBUTES
+from .base import HearthstoneBase
 
 
-class HearthstoneSet(object):
-    def __init__(self, name=None, standard=False, wild=False, cards=None):
-        self.standard = standard
-        self.wild = wild
-        self.name = name
-        self.cards = cards
+class HearthstoneSet(HearthstoneBase):
+    def __init__(self, **attributes):
+        super(HearthstoneSet, self).__init__(SET_ATTRIBUTES, **attributes)
+        self._initialize_cards(attributes.pop('cards', None))
 
+    def _initialize_cards(self, cards=None):
+        card_set = list()
+        if cards is not None:
+            for card in cards:
+                card_set.append(HearthstoneCard(**card))
+        setattr(self, 'cards', card_set)
 
 class HearthstoneSets(APIMixin):
     def __init__(self, header=None):
@@ -48,4 +55,4 @@ class HearthstoneSets(APIMixin):
         wild = self._is_set_wild(set_name)
         cards = self._get_card_set(set_name)
 
-        return HearthstoneSet(set_name, standard, wild, cards)
+        return HearthstoneSet(set_name=set_name, standard=standard, wild=wild, cards=cards)
