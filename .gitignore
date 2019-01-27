@@ -3,6 +3,7 @@ __pycache__/
 cassettes/
 .ipynb_checkpoints/
 .vscode/
+venv/
 
 credentials.py
 main.py
